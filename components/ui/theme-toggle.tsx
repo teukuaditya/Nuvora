@@ -12,7 +12,7 @@ function getInitialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export function ThemeToggle({ className = "", variant = "default" }: { className?: string; variant?: "default" | "sidebar" }) {
+export function ThemeToggle({ className = "", variant = "default", iconOnly = false }: { className?: string; variant?: "default" | "sidebar"; iconOnly?: boolean }) {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
@@ -43,10 +43,10 @@ export function ThemeToggle({ className = "", variant = "default" }: { className
       type="button"
       onClick={toggle}
       aria-label={theme === "dark" ? "Aktifkan mode terang" : "Aktifkan mode malam"}
-      className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${styles} ${className}`}
+      className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${styles} ${className}`}
     >
       {mounted && theme === "dark" ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
-      <span>{mounted && theme === "dark" ? "Mode terang" : "Mode malam"}</span>
+      {!iconOnly ? <span>{mounted && theme === "dark" ? "Mode terang" : "Mode malam"}</span> : null}
     </button>
   );
 }

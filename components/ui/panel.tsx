@@ -8,7 +8,7 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={`rounded-2xl border border-garis bg-putih ${className}`}>
+    <section className={`rounded-2xl border border-border bg-surface ${className}`}>
       {children}
     </section>
   );
