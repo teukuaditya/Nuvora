@@ -26,15 +26,20 @@ export default async function DashboardPage() {
 
   const { data: business } = await supabase
     .from("businesses")
-    .select("name, slug, timezone")
+    .select("id, name, slug, timezone")
     .eq("owner_id", user.id)
     .maybeSingle();
   if (!business) redirect("/onboarding");
 
+  const [{ count: serviceCount }, { count: ruleCount }] = await Promise.all([
+    supabase.from("services").select("id", { count: "exact", head: true }).eq("business_id", business.id),
+    supabase.from("availability_rules").select("id", { count: "exact", head: true }).eq("business_id", business.id),
+  ]);
+
   const bookingPath = `/${business.slug}`;
   const checklist = [
-    { label: "Tambah layanan", href: "/dashboard/layanan", done: false },
-    { label: "Atur jam buka", href: "/dashboard/jam-buka", done: false },
+    { label: "Tambah layanan", href: "/dashboard/layanan", done: (serviceCount ?? 0) > 0 },
+    { label: "Atur jam buka", href: "/dashboard/jam-buka", done: (ruleCount ?? 0) > 0 },
     { label: "Bagikan link booking", href: bookingPath, done: true },
   ];
   const kpis = [
