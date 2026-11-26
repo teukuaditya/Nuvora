@@ -58,7 +58,7 @@ export default async function DaftarPage({
             </Link>
           </div>
 
-          <div className="rounded-[2rem] border border-stone-200/80 bg-white p-8 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.08)] dark:border-border dark:bg-surface sm:p-10">
+          <div className="py-2 sm:py-4">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-dark dark:text-primary">Mulai gratis</p>
             <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 dark:text-foreground">Buat akun Nuvora</h1>
             <p className="mt-2 text-sm text-stone-500 dark:text-muted">Siapkan bisnis kamu untuk menerima booking online.</p>
