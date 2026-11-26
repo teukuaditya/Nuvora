@@ -51,11 +51,11 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-6 rounded-lg border p-5">
-        <h2 className="font-medium">Langkah berikutnya</h2>
+        <h2 className="font-medium">Menu</h2>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
-          <li><Link href="/dashboard/layanan" className="underline">Tambah layanan dan durasi</Link></li>
-          <li><Link href="/dashboard/jam-buka" className="underline">Atur jam buka dan tanggal libur</Link></li>
-          <li>Halaman booking publik sudah aktif</li>
+          <li><Link href="/dashboard/layanan" className="underline">Layanan</Link></li>
+          <li><Link href="/dashboard/jam-buka" className="underline">Jam buka & libur</Link></li>
+          <li><Link href="/dashboard/jadwal" className="underline">Jadwal booking</Link></li>
         </ul>
         <Link href={bookingPath} className="mt-4 inline-block text-sm underline">
           Lihat halaman booking
