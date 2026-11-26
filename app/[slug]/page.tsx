@@ -88,11 +88,11 @@ export default async function PublicBookingPage({ params }: { params: Promise<{ 
             </div>
             <p className="max-w-sm text-gray-500">Pilih layanan yang tersedia dan lanjutkan booking di waktu yang paling sesuai.</p>
           </div>
-          <div className="grid gap-px border border-gray-100 bg-gray-100 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {(services ?? []).length === 0 ? (
-              <div className="bg-white p-10 text-sm text-gray-500">Belum ada layanan aktif.</div>
+              <div className="rounded-2xl border border-gray-100 bg-white p-10 text-sm text-gray-500">Belum ada layanan aktif.</div>
             ) : (services ?? []).map((s) => (
-              <div key={s.id} className="group bg-white p-10 transition-all duration-500 hover:bg-[#0C0C0C]">
+              <div key={s.id} className="group rounded-2xl border border-gray-100 bg-white p-10 transition-all duration-500 hover:bg-[#0C0C0C]">
                 <div className="mb-8 text-[#C5A059] transition-transform duration-500 group-hover:scale-110"><Scissors size={40} /></div>
                 <h3 className="font-display text-2xl font-medium group-hover:text-white">{s.name}</h3>
                 <p className="mt-4 min-h-[48px] text-sm leading-relaxed text-gray-500 group-hover:text-gray-400">{s.description || "Layanan profesional dari bisnis ini."}</p>
