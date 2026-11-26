@@ -1,10 +1,21 @@
-import Link from "next/link";
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { logout } from "./actions";
+import { Panel } from "@/components/ui/panel";
+import { CopyBookingLink } from "./copy-booking-link";
+import { TodaySchedule } from "./today-schedule";
 
 export const instant = false;
+
+function todayLabel(timeZone: string) {
+  return new Intl.DateTimeFormat("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone,
+  }).format(new Date());
+}
 
 export default async function DashboardPage() {
   await connection();
@@ -20,46 +31,56 @@ export default async function DashboardPage() {
   if (!business) redirect("/onboarding");
 
   const bookingPath = `/${business.slug}`;
+  const checklist = [
+    { label: "Tambah layanan", href: "/dashboard/layanan", done: false },
+    { label: "Atur jam buka", href: "/dashboard/jam-buka", done: false },
+    { label: "Bagikan link booking", href: bookingPath, done: true },
+  ];
 
   return (
-    <main className="min-h-screen px-6 py-10">
-      <div className="mx-auto w-full max-w-5xl">
-        <header className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-brand">Nuvora</p>
-            <h1 className="mt-1 text-3xl font-semibold">Dashboard</h1>
-            <p className="mt-1 text-sm text-muted">{business.name} · {business.timezone}</p>
-          </div>
-          <form action={logout}>
-            <button type="submit" className="rounded-xl border border-border bg-surface px-4 py-2 text-sm hover:bg-gray-50">
-              Keluar
-            </button>
-          </form>
-        </header>
+    <main className="px-5 py-6 sm:px-6 sm:py-8">
+      <div className="mx-auto w-full max-w-6xl">
+        <div>
+          <p className="font-display text-sm font-semibold text-biru-tiang">Ringkasan</p>
+          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-tinta sm:text-4xl">
+            Selamat datang, {business.name}
+          </h1>
+          <p className="mt-2 text-sm text-[#4d5e73]">{todayLabel(business.timezone)}</p>
+        </div>
 
-        <section className="mt-8 rounded-3xl border border-border bg-surface p-6 shadow-sm">
-          <p className="text-sm font-medium text-muted">Link booking kamu</p>
-          <p className="mt-2 text-xl font-semibold">{bookingPath}</p>
-          <p className="mt-2 text-sm text-muted">Bagikan link ini ke pelanggan untuk menerima booking online.</p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link href={bookingPath} className="rounded-xl bg-brand px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-dark">
-              Buka halaman booking
-            </Link>
-          </div>
-        </section>
+        <CopyBookingLink bookingPath={bookingPath} />
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {[
-            { href: "/dashboard/layanan", title: "Layanan", desc: "Tambah layanan, durasi, dan harga." },
-            { href: "/dashboard/jam-buka", title: "Jam buka & libur", desc: "Atur jadwal kerja dan tanggal tutup." },
-            { href: "/dashboard/jadwal", title: "Jadwal booking", desc: "Lihat booking harian/mingguan dan ubah status." },
-          ].map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-3xl border border-border bg-surface p-5 shadow-sm hover:border-brand/40">
-              <h2 className="font-semibold">{item.title}</h2>
-              <p className="mt-2 text-sm text-muted">{item.desc}</p>
-              <p className="mt-4 text-sm font-medium text-brand">Buka →</p>
-            </Link>
-          ))}
+        <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+          <TodaySchedule />
+
+          <Panel className="p-5">
+            <p className="font-display text-lg font-semibold text-tinta">Mulai dari sini</p>
+            <p className="mt-1 text-sm text-[#5b6b80]">Langkah dasar agar booking siap dipakai.</p>
+            <ul className="mt-5 space-y-3">
+              {checklist.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="flex min-h-11 items-center gap-3 rounded-xl border border-garis px-4 py-3 text-sm text-tinta transition-colors hover:bg-porselen focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-biru-tiang"
+                  >
+                    <span
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border text-[11px] font-semibold ${
+                        item.done ? "border-biru-tiang bg-biru-tiang text-putih" : "border-garis bg-putih text-[#7b8796]"
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {item.done ? "✓" : ""}
+                    </span>
+                    <span className="flex-1">{item.label}</span>
+                    <span className="text-xs text-[#6b7b90]">{item.done ? "Selesai" : "Belum"}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 rounded-xl bg-porselen p-4 text-sm text-[#4d5e73]">
+              Buka dashboard ini di HP saat shop ramai. Tombol dan link sudah dibuat besar agar mudah disentuh.
+            </div>
+          </Panel>
         </div>
       </div>
     </main>

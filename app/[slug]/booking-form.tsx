@@ -21,7 +21,8 @@ export default function BookingForm({ businessId, timezone, services }: { busine
   const [slots, setSlots] = useState<Slot[]>([]);
 
   useEffect(() => {
-    setDate(todayInTimezone(timezone));
+    const timeout = window.setTimeout(() => setDate(todayInTimezone(timezone)), 0);
+    return () => window.clearTimeout(timeout);
   }, [timezone]);
   const [slotsLoaded, setSlotsLoaded] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
