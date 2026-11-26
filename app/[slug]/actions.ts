@@ -64,6 +64,30 @@ export async function createPublicBooking(input: {
   endsAt: string;
 }) {
   const supabase = await createClient();
+  const admin = createAdminClient();
+
+  const { data: businessPlan } = await admin
+    .from("businesses")
+    .select("plan")
+    .eq("id", input.businessId)
+    .single();
+
+  if (businessPlan?.plan === "free") {
+    const now = new Date();
+    const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString();
+    const monthEnd = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)).toISOString();
+    const { count } = await admin
+      .from("bookings")
+      .select("id", { count: "exact", head: true })
+      .eq("business_id", input.businessId)
+      .neq("status", "cancelled")
+      .gte("created_at", monthStart)
+      .lt("created_at", monthEnd);
+    if ((count ?? 0) >= 30) {
+      return { ok: false as const, error: "Batas booking paket gratis bulan ini sudah tercapai." };
+    }
+  }
+
   const { data, error } = await supabase.rpc("create_public_booking", {
     p_business_id: input.businessId,
     p_service_id: input.serviceId,
@@ -79,7 +103,6 @@ export async function createPublicBooking(input: {
   }
 
   const booking = Array.isArray(data) ? data[0] : data;
-  const admin = createAdminClient();
 
   const [{ data: business }, { data: service }] = await Promise.all([
     admin.from("businesses").select("name, timezone, owner_id").eq("id", input.businessId).single(),
