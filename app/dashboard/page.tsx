@@ -44,7 +44,7 @@ export default async function DashboardPage() {
       <section className="mt-8 rounded-lg border p-5">
         <h2 className="font-medium">Link booking kamu</h2>
         <p className="mt-2 text-sm text-gray-600">
-          Bagikan link ini ke pelanggan (halaman booking publik akan dibuat di fase berikutnya).
+          Bagikan link ini ke pelanggan untuk menerima booking online.
         </p>
         <p className="mt-3 rounded-md bg-gray-50 p-3 font-mono text-sm">{bookingPath}</p>
         <p className="mt-2 text-xs text-gray-500">Zona waktu: {business.timezone}</p>
@@ -55,10 +55,10 @@ export default async function DashboardPage() {
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
           <li><Link href="/dashboard/layanan" className="underline">Tambah layanan dan durasi</Link></li>
           <li><Link href="/dashboard/jam-buka" className="underline">Atur jam buka dan tanggal libur</Link></li>
-          <li>Aktifkan halaman booking publik</li>
+          <li>Halaman booking publik sudah aktif</li>
         </ul>
         <Link href={bookingPath} className="mt-4 inline-block text-sm underline">
-          Lihat halaman booking (belum tersedia)
+          Lihat halaman booking
         </Link>
       </section>
     </main>
