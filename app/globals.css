@@ -3,54 +3,54 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8f7f4;
-  --foreground: #18181b;
-  --surface: #ffffff;
-  --surface-alt: #fcfcfb;
-  --muted: #71717a;
-  --border: #e7e3dc;
-  --accent: #18181b;
-  --accent-soft: #f1ede6;
+  --background: #f3f5f2;
+  --foreground: #1b2430;
+  --surface: #fbfcfa;
+  --surface-alt: #eef3ef;
+  --muted: #667085;
+  --border: #dde5df;
+  --accent: #2f7a5e;
+  --accent-soft: #e7f3ee;
   --gold: #a17c43;
-  --now: #18181b;
-  --sidebar: #ffffff;
-  --sidebar-muted: #71717a;
-  --sidebar-active: #f3efe8;
+  --now: #2f7a5e;
+  --sidebar: #fbfcfa;
+  --sidebar-muted: #667085;
+  --sidebar-active: #e7f3ee;
   /* legacy */
-  --brand: #18181b;
-  --brand-dark: #0f0f12;
-  --brand-soft: #f1ede6;
-  --tinta: #18181b;
-  --porselen: #f8f7f4;
-  --putih: #ffffff;
-  --garis: #e7e3dc;
+  --brand: #2f7a5e;
+  --brand-dark: #26664f;
+  --brand-soft: #e7f3ee;
+  --tinta: #1b2430;
+  --porselen: #f3f5f2;
+  --putih: #fbfcfa;
+  --garis: #dde5df;
   --merah-tiang: #d6322e;
   --biru-tiang: #2f5d9b;
 }
 
 .dark {
-  --background: #111318;
-  --foreground: #f3f4f6;
-  --surface: #181b22;
-  --surface-alt: #1d212a;
-  --muted: #9ca3af;
-  --border: #2a303b;
-  --accent: #d4b475;
-  --accent-soft: #252219;
+  --background: #141a17;
+  --foreground: #edf2ee;
+  --surface: #1a211d;
+  --surface-alt: #223029;
+  --muted: #a3b0a8;
+  --border: #2c3932;
+  --accent: #7bc4a4;
+  --accent-soft: #22362d;
   --gold: #d4b475;
-  --now: #f3f4f6;
-  --sidebar: #161920;
-  --sidebar-muted: #9ca3af;
-  --sidebar-active: #232834;
-  --brand: #d4b475;
-  --brand-dark: #c3a463;
-  --brand-soft: #252219;
-  --tinta: #f3f4f6;
-  --porselen: #111318;
-  --putih: #181b22;
-  --garis: #2a303b;
-  --merah-tiang: #d6322e;
-  --biru-tiang: #7ba4e0;
+  --now: #7bc4a4;
+  --sidebar: #18201c;
+  --sidebar-muted: #a3b0a8;
+  --sidebar-active: #24362d;
+  --brand: #7bc4a4;
+  --brand-dark: #69b391;
+  --brand-soft: #22362d;
+  --tinta: #edf2ee;
+  --porselen: #141a17;
+  --putih: #1a211d;
+  --garis: #2c3932;
+  --merah-tiang: #e06a66;
+  --biru-tiang: #8ab4e6;
 }
 
 @theme inline {
