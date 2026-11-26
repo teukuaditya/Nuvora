@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { createPublicBooking, getPublicSlots } from "./actions";
 
 type Service = { id: string; name: string; description: string | null; duration_minutes: number; price: number | null };
@@ -17,8 +17,12 @@ function todayInTimezone(timeZone: string) {
 
 export default function BookingForm({ businessId, timezone, services }: { businessId: string; timezone: string; services: Service[] }) {
   const [serviceId, setServiceId] = useState(services[0]?.id ?? "");
-  const [date, setDate] = useState(todayInTimezone(timezone));
+  const [date, setDate] = useState("");
   const [slots, setSlots] = useState<Slot[]>([]);
+
+  useEffect(() => {
+    setDate(todayInTimezone(timezone));
+  }, [timezone]);
   const [slotsLoaded, setSlotsLoaded] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [name, setName] = useState("");
@@ -32,7 +36,7 @@ export default function BookingForm({ businessId, timezone, services }: { busine
   const selectedService = services.find((s) => s.id === serviceId);
 
   function loadSlots() {
-    if (!selectedService) return;
+    if (!selectedService || !date) return;
     setError(null); setSelectedSlot(null); setSlotsLoaded(false);
     startLoadingSlots(async () => {
       const result = await getPublicSlots({ businessId, serviceId: selectedService.id, date, timezone, durationMinutes: selectedService.duration_minutes });
@@ -69,7 +73,7 @@ export default function BookingForm({ businessId, timezone, services }: { busine
           <input type="date" value={date} onChange={(e) => { setDate(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }} className="w-full rounded-xl border border-border px-3 py-2.5 outline-none focus:border-brand" />
         </label>
         <div className="flex items-end">
-          <button type="button" onClick={loadSlots} disabled={loadingSlots} className="w-full rounded-xl bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-50 sm:w-auto">
+          <button type="button" onClick={loadSlots} disabled={loadingSlots || !date} className="w-full rounded-xl bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-50 sm:w-auto">
             {loadingSlots ? "Memuat..." : "Lihat slot"}
           </button>
         </div>
