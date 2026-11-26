@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
 import { logout } from "./actions";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
+  await connection();
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   let workspaceName = "Nuvora";

@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -45,6 +46,7 @@ function fmtTime(iso: string, timeZone: string) { return new Intl.DateTimeFormat
 function fmtDate(iso: string, timeZone: string) { return new Intl.DateTimeFormat("id-ID", { timeZone, dateStyle: "medium" }).format(new Date(iso)); }
 
 export default async function JadwalPage({ searchParams }: { searchParams: Promise<{ date?: string; view?: string; error?: string }> }) {
+  await connection();
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
