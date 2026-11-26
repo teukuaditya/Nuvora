@@ -36,7 +36,7 @@ export function CopyBookingLink({ bookingPath }: { bookingPath: string }) {
         href={bookingPath}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary-soft px-4 py-2.5 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <ExternalLink size={16} aria-hidden="true" />
         Buka halaman
