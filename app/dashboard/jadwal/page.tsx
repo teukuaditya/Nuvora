@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateBookingStatus } from "./actions";
@@ -38,7 +39,9 @@ function todayInTz(timeZone: string) { const p = getZonedParts(new Date(), timeZ
 function fmtTime(iso: string, timeZone: string) { return new Intl.DateTimeFormat("id-ID", { timeZone, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(iso)); }
 function fmtDate(iso: string, timeZone: string) { return new Intl.DateTimeFormat("id-ID", { timeZone, dateStyle: "medium" }).format(new Date(iso)); }
 
-export default async function JadwalPage({ searchParams }: { searchParams: Promise<{ date?: string; view?: string; error?: string }> }) {
+export default async function JadwalPage({
+   searchParams }: { searchParams: Promise<{ date?: string; view?: string; error?: string }> }) {
+  await connection();
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { getBookingByToken } from "./actions";
 import ManageBooking from "./manage-booking";
 
@@ -8,7 +9,9 @@ function fmt(iso: string, timeZone: string) {
   return new Intl.DateTimeFormat("id-ID", { dateStyle: "full", timeStyle: "short", timeZone }).format(new Date(iso));
 }
 
-export default async function BookingManagePage({ params }: { params: Promise<{ token: string }> }) {
+export default async function BookingManagePage({
+   params }: { params: Promise<{ token: string }> }) {
+  await connection();
   const { token } = await params;
   const data = await getBookingByToken(token);
   if (!data) notFound();

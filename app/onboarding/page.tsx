@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createBusiness } from "./actions";
 
@@ -9,6 +10,7 @@ export default async function OnboardingPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
+  await connection();
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

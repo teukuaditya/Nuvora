@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { login } from "./actions";
 
 export const instant = false;
@@ -8,6 +9,7 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ error?: string; message?: string }>;
 }) {
+  await connection();
   const params = await searchParams;
 
   return (
