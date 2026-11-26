@@ -27,9 +27,9 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   );
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-200 md:flex">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       <SidebarNav workspaceName={workspaceName} footer={logoutButton} />
-      <div className="flex min-w-0 flex-1 flex-col">{children}</div>
+      <div className="min-w-0 md:ml-72">{children}</div>
     </div>
   );
 }
