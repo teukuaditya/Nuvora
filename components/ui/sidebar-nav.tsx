@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Calendar, ChevronsUpDown, Clock, LayoutDashboard, ListTodo, LogOut, Menu, Scissors, X } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
 
 const items = [
   { href: "/dashboard", label: "Ringkasan", icon: LayoutDashboard },
@@ -61,7 +60,6 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
       </nav>
 
       <div className="mt-auto space-y-2 border-t border-stone-50 p-6 dark:border-border">
-        <ThemeToggle className="w-full justify-between rounded-xl border-0 bg-transparent px-3 hover:bg-stone-50 dark:hover:bg-surface-alt" />
         <div className="flex items-center gap-3 px-4 py-3 text-stone-400 dark:text-muted">
           <LogOut size={20} />
           <div className="text-sm font-medium">{footer}</div>

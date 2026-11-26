@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
-import { Bell, Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Globe, Plus, Scissors, SlidersHorizontal, Users2 } from "lucide-react";
+import { Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Globe, Plus, Scissors, SlidersHorizontal, Users2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { CopyBookingLink } from "./copy-booking-link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { NotificationBell } from "./notification-bell";
 
 export const instant = false;
 
@@ -53,11 +54,12 @@ export default async function DashboardPage() {
   const rangeStart = zonedTimeToUtc(date, 0, business.timezone).toISOString();
   const rangeEnd = zonedTimeToUtc(addDays(date, 1), 0, business.timezone).toISOString();
 
-  const [todayBookingsRes, serviceCountRes, ruleCountRes, customerRes] = await Promise.all([
+  const [todayBookingsRes, serviceCountRes, ruleCountRes, customerRes, recentRes] = await Promise.all([
     supabase.from("bookings").select("id, customer_name, starts_at, ends_at, status, services(name, price)").eq("business_id", business.id).gte("starts_at", rangeStart).lt("starts_at", rangeEnd).order("starts_at", { ascending: true }),
     supabase.from("services").select("id", { count: "exact", head: true }).eq("business_id", business.id).eq("is_active", true),
     supabase.from("availability_rules").select("id", { count: "exact", head: true }).eq("business_id", business.id),
     supabase.from("bookings").select("customer_email, customer_phone").eq("business_id", business.id).limit(1000),
+    supabase.from("bookings").select("id, customer_name, starts_at, status, services(name)").eq("business_id", business.id).order("created_at", { ascending: false }).limit(8),
   ]);
 
   const todayBookings = todayBookingsRes.data ?? [];
@@ -68,6 +70,16 @@ export default async function DashboardPage() {
     const svc = Array.isArray(b.services) ? b.services[0] : b.services;
     return sum + (Number(svc?.price) || 0);
   }, 0);
+  const initialNotifications = (recentRes.data ?? []).map((b) => {
+    const serviceName = Array.isArray(b.services) ? b.services[0]?.name : (b.services as { name?: string } | null)?.name;
+    return {
+      id: b.id,
+      title: "Booking baru",
+      detail: `${b.customer_name}${serviceName ? ` · ${serviceName}` : ""}${b.starts_at ? ` · ${fmtTime(b.starts_at, business.timezone)}` : ""}`,
+      at: b.starts_at,
+      read: true,
+    };
+  });
 
   const bookingPath = `/${business.slug}`;
   const checklist = [
@@ -88,10 +100,7 @@ export default async function DashboardPage() {
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle iconOnly className="min-h-10 min-w-10 justify-center rounded-xl border-stone-200 bg-white px-0 text-stone-500 hover:bg-stone-50 hover:text-stone-800 dark:border-border dark:bg-surface dark:text-muted dark:hover:bg-surface-alt dark:hover:text-foreground" />
-          <button type="button" className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-stone-400 transition-colors hover:bg-stone-50 hover:text-stone-800 dark:hover:bg-surface-alt dark:hover:text-foreground" aria-label="Notifikasi">
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-red-500 dark:border-background" />
-            <Bell size={20} />
-          </button>
+          <NotificationBell businessId={business.id} initial={initialNotifications} />
           <div className="hidden h-8 w-px bg-stone-100 dark:bg-border sm:block" />
           <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
