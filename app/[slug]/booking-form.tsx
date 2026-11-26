@@ -45,6 +45,7 @@ export default function BookingForm({
   const [serviceId, setServiceId] = useState(services[0]?.id ?? "");
   const [date, setDate] = useState(todayInTimezone(timezone));
   const [slots, setSlots] = useState<Slot[]>([]);
+  const [slotsLoaded, setSlotsLoaded] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,6 +61,7 @@ export default function BookingForm({
     if (!selectedService) return;
     setError(null);
     setSelectedSlot(null);
+    setSlotsLoaded(false);
     startLoadingSlots(async () => {
       const result = await getPublicSlots({
         businessId,
@@ -69,6 +71,7 @@ export default function BookingForm({
         durationMinutes: selectedService.duration_minutes,
       });
       setSlots(result);
+      setSlotsLoaded(true);
     });
   }
 
@@ -114,7 +117,7 @@ export default function BookingForm({
         <span className="mb-1 block font-medium">Layanan</span>
         <select
           value={serviceId}
-          onChange={(e) => { setServiceId(e.target.value); setSlots([]); setSelectedSlot(null); }}
+          onChange={(e) => { setServiceId(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }}
           className="w-full rounded-md border px-3 py-2"
         >
           {services.map((s) => (
@@ -131,7 +134,7 @@ export default function BookingForm({
           <input
             type="date"
             value={date}
-            onChange={(e) => { setDate(e.target.value); setSlots([]); setSelectedSlot(null); }}
+            onChange={(e) => { setDate(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }}
             className="w-full rounded-md border px-3 py-2"
           />
         </label>
@@ -147,26 +150,32 @@ export default function BookingForm({
         </div>
       </div>
 
-      {slots.length > 0 ? (
-        <div>
-          <p className="mb-2 text-sm font-medium">Jam tersedia</p>
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-            {slots.map((slot) => {
-              const label = formatTime(slot.startsAt, timezone);
-              const active = selectedSlot?.startsAt === slot.startsAt;
-              return (
-                <button
-                  key={slot.startsAt}
-                  type="button"
-                  onClick={() => setSelectedSlot(slot)}
-                  className={`rounded-md border px-3 py-2 text-sm ${active ? "bg-black text-white" : ""}`}
-                >
-                  {label}
-                </button>
-              );
-            })}
+      {slotsLoaded ? (
+        slots.length > 0 ? (
+          <div>
+            <p className="mb-2 text-sm font-medium">Jam tersedia</p>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+              {slots.map((slot) => {
+                const label = formatTime(slot.startsAt, timezone);
+                const active = selectedSlot?.startsAt === slot.startsAt;
+                return (
+                  <button
+                    key={slot.startsAt}
+                    type="button"
+                    onClick={() => setSelectedSlot(slot)}
+                    className={`rounded-md border px-3 py-2 text-sm ${active ? "bg-black text-white" : ""}`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-sm text-gray-600">
+            Tidak ada slot tersedia untuk tanggal ini. Pastikan jam buka sudah diatur.
+          </p>
+        )
       ) : null}
 
       {selectedSlot ? (
