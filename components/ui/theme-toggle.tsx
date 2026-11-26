@@ -12,7 +12,7 @@ function getInitialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
+export function ThemeToggle({ className = "", variant = "default" }: { className?: string; variant?: "default" | "sidebar" }) {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
@@ -33,12 +33,17 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     window.localStorage.setItem("theme", next);
   }
 
+  const styles =
+    variant === "sidebar"
+      ? "border-sidebar-border bg-white/5 text-sidebar-foreground hover:bg-white/10 focus-visible:ring-offset-sidebar"
+      : "border-border bg-surface text-foreground hover:bg-surface-alt focus-visible:ring-offset-background";
+
   return (
     <button
       type="button"
       onClick={toggle}
       aria-label={theme === "dark" ? "Aktifkan mode terang" : "Aktifkan mode malam"}
-      className={`inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
+      className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${styles} ${className}`}
     >
       {mounted && theme === "dark" ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
       <span>{mounted && theme === "dark" ? "Mode terang" : "Mode malam"}</span>

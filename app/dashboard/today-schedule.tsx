@@ -33,9 +33,11 @@ export function TodaySchedule() {
         <div className="relative">
           <div>
             {HOURS.map((hour) => (
-              <div key={hour} className="grid grid-cols-[64px_1fr] items-start gap-4 py-4 sm:grid-cols-[72px_1fr]">
+              <div key={hour} className="group grid grid-cols-[64px_1fr] items-start gap-4 py-4 sm:grid-cols-[72px_1fr]">
                 <div className="font-ui text-sm font-medium tabular-nums text-muted">{formatHour(hour)}</div>
-                <div className="mt-2 border-t border-border/80" />
+                <div className="relative mt-2 border-t border-border/80">
+                  <span className="absolute right-0 -top-3 text-xs text-muted/0 transition-colors duration-200 group-hover:text-muted/70">+ Tambah jadwal</span>
+                </div>
               </div>
             ))}
           </div>
