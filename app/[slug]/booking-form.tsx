@@ -63,7 +63,7 @@ export default function BookingForm({ businessId, timezone, services }: { busine
     <div className="mt-6 space-y-6">
       <label className="block text-sm">
         <span className="mb-1.5 block font-medium">Layanan</span>
-        <select value={serviceId} onChange={(e) => { setServiceId(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }} className="w-full rounded-xl border border-border px-3 py-2.5 outline-none focus:border-brand">
+        <select value={serviceId} onChange={(e) => { setServiceId(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }} className="w-full rounded-xl border border-border px-3 py-2.5 outline-none focus:border-accent">
           {services.map((s) => <option key={s.id} value={s.id}>{s.name} · {s.duration_minutes} menit{s.price != null ? ` · Rp${s.price}` : ""}</option>)}
         </select>
       </label>
@@ -71,10 +71,10 @@ export default function BookingForm({ businessId, timezone, services }: { busine
       <div className="flex flex-col gap-3 sm:flex-row">
         <label className="block flex-1 text-sm">
           <span className="mb-1.5 block font-medium">Tanggal</span>
-          <input type="date" value={date} onChange={(e) => { setDate(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }} className="w-full rounded-xl border border-border px-3 py-2.5 outline-none focus:border-brand" />
+          <input type="date" value={date} onChange={(e) => { setDate(e.target.value); setSlots([]); setSelectedSlot(null); setSlotsLoaded(false); }} className="w-full rounded-xl border border-border px-3 py-2.5 outline-none focus:border-accent" />
         </label>
         <div className="flex items-end">
-          <button type="button" onClick={loadSlots} disabled={loadingSlots || !date} className="w-full rounded-xl bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-50 sm:w-auto">
+          <button type="button" onClick={loadSlots} disabled={loadingSlots || !date} className="w-full rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 dark:text-[#141a17] disabled:opacity-50 sm:w-auto">
             {loadingSlots ? "Memuat..." : "Lihat slot"}
           </button>
         </div>
@@ -88,7 +88,7 @@ export default function BookingForm({ businessId, timezone, services }: { busine
               {slots.map((slot) => {
                 const label = formatTime(slot.startsAt, timezone);
                 const active = selectedSlot?.startsAt === slot.startsAt;
-                return <button key={slot.startsAt} type="button" onClick={() => setSelectedSlot(slot)} className={`rounded-xl border px-3 py-2.5 text-sm font-medium ${active ? "border-brand bg-brand text-white" : "border-border bg-background hover:border-brand/40"}`}>{label}</button>;
+                return <button key={slot.startsAt} type="button" onClick={() => setSelectedSlot(slot)} className={`rounded-xl border px-3 py-2.5 text-sm font-medium ${active ? "border-accent bg-accent text-white dark:text-[#141a17]" : "border-border bg-background hover:border-accent/40"}`}>{label}</button>;
               })}
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function BookingForm({ businessId, timezone, services }: { busine
             <label className="block text-sm"><span className="mb-1.5 block font-medium">Nomor WhatsApp</span><input value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full rounded-xl border border-border bg-surface px-3 py-2.5" /></label>
           </div>
           {error ? <p className="text-sm text-red-600">{error}</p> : null}
-          <button type="button" onClick={submit} disabled={submitting || !name || (!email && !phone)} className="w-full rounded-xl bg-brand px-4 py-3 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-50">
+          <button type="button" onClick={submit} disabled={submitting || !name || (!email && !phone)} className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-medium text-white hover:opacity-90 dark:text-[#141a17] disabled:opacity-50">
             {submitting ? "Menyimpan..." : "Konfirmasi booking"}
           </button>
         </div>

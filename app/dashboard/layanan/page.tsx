@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { Panel } from "@/components/ui/panel";
 import { createService, deleteService, toggleService } from "./actions";
 
 export const instant = false;
@@ -11,7 +11,6 @@ export default async function LayananPage({
 }: {
   searchParams: Promise<{ error?: string; message?: string }>;
 }) {
-  await connection();
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -27,54 +26,57 @@ export default async function LayananPage({
     .order("created_at", { ascending: true });
 
   return (
-    <main className="min-h-screen px-6 py-10">
-      <div className="mx-auto w-full max-w-4xl">
-        <div className="flex items-center justify-between gap-4">
+    <main className="px-5 py-6 sm:px-8 sm:py-8">
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-brand">Nuvora</p>
-            <h1 className="mt-1 text-3xl font-semibold">Layanan</h1>
-            <p className="mt-1 text-sm text-muted">{business.name}</p>
+            <p className="text-sm font-medium text-muted">Layanan</p>
+            <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight text-foreground">{business.name}</h1>
+            <p className="mt-2 text-sm text-muted">Atur layanan yang bisa dipesan pelanggan.</p>
           </div>
-          <Link href="/dashboard" className="rounded-xl border border-border bg-surface px-4 py-2 text-sm hover:bg-gray-50">Dashboard</Link>
+          <Link href="/dashboard" className="inline-flex min-h-11 items-center rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-medium hover:bg-surface-alt">Dashboard</Link>
         </div>
 
-        {params.error ? <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{params.error}</p> : null}
-        {params.message ? <p className="mt-4 rounded-xl bg-green-50 p-3 text-sm text-green-700">{params.message}</p> : null}
+        {params.error ? <p className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">{params.error}</p> : null}
+        {params.message ? <p className="mt-5 rounded-xl border border-green-200 bg-green-50 p-3 text-sm text-green-700 dark:border-green-900/40 dark:bg-green-950/30 dark:text-green-300">{params.message}</p> : null}
 
-        <section className="mt-8 rounded-3xl border border-border bg-surface p-6 shadow-sm">
-          <h2 className="text-lg font-semibold">Tambah layanan</h2>
+        <Panel className="mt-6 p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] sm:p-6">
+          <h2 className="font-display text-xl font-semibold text-foreground">Tambah layanan</h2>
           <form action={createService} className="mt-4 grid gap-4 sm:grid-cols-2">
-            <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-medium">Nama layanan</span><input name="name" required className="w-full rounded-xl border border-border px-3 py-2.5" placeholder="Potong rambut" /></label>
-            <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-medium">Deskripsi (opsional)</span><input name="description" className="w-full rounded-xl border border-border px-3 py-2.5" placeholder="Termasuk cuci" /></label>
-            <label className="text-sm"><span className="mb-1.5 block font-medium">Durasi (menit)</span><input name="duration_minutes" type="number" min="1" required className="w-full rounded-xl border border-border px-3 py-2.5" defaultValue="30" /></label>
-            <label className="text-sm"><span className="mb-1.5 block font-medium">Harga (opsional)</span><input name="price" type="number" min="0" className="w-full rounded-xl border border-border px-3 py-2.5" placeholder="50000" /></label>
-            <div className="sm:col-span-2"><button type="submit" className="rounded-xl bg-brand px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-dark">Simpan layanan</button></div>
+            <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-medium">Nama layanan</span><input name="name" required className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 outline-none focus:border-accent" placeholder="Potong rambut" /></label>
+            <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-medium">Deskripsi (opsional)</span><input name="description" className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 outline-none focus:border-accent" placeholder="Termasuk cuci" /></label>
+            <label className="text-sm"><span className="mb-1.5 block font-medium">Durasi (menit)</span><input name="duration_minutes" type="number" min="1" required className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 outline-none focus:border-accent" defaultValue="30" /></label>
+            <label className="text-sm"><span className="mb-1.5 block font-medium">Harga (opsional)</span><input name="price" type="number" min="0" className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 outline-none focus:border-accent" placeholder="50000" /></label>
+            <div className="sm:col-span-2"><button type="submit" className="rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-white hover:opacity-90 dark:text-[#141a17]">Simpan layanan</button></div>
           </form>
-        </section>
+        </Panel>
 
         <section className="mt-6 space-y-3">
-          {(services ?? []).length === 0 ? <p className="text-sm text-muted">Belum ada layanan.</p> : null}
+          {(services ?? []).length === 0 ? <Panel className="p-5 text-sm text-muted shadow-[0_2px_8px_rgba(0,0,0,0.04)]">Belum ada layanan.</Panel> : null}
           {(services ?? []).map((service) => (
-            <div key={service.id} className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+            <Panel key={service.id} className="p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="font-medium">{service.name} {!service.is_active ? <span className="text-xs text-muted">(nonaktif)</span> : null}</p>
-                  <p className="text-sm text-muted">{service.duration_minutes} menit{service.price != null ? ` · Rp${service.price}` : ""}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium text-foreground">{service.name}</p>
+                    {!service.is_active ? <span className="rounded-full bg-surface-alt px-2.5 py-1 text-xs text-muted">Nonaktif</span> : null}
+                  </div>
+                  <p className="mt-1 text-sm text-muted">{service.duration_minutes} menit{service.price != null ? ` · Rp${service.price}` : ""}</p>
                   {service.description ? <p className="text-sm text-muted">{service.description}</p> : null}
                 </div>
                 <div className="flex gap-2">
                   <form action={toggleService}>
                     <input type="hidden" name="id" value={service.id} />
                     <input type="hidden" name="is_active" value={String(service.is_active)} />
-                    <button type="submit" className="rounded-xl border border-border px-3 py-2 text-sm hover:bg-gray-50">{service.is_active ? "Nonaktifkan" : "Aktifkan"}</button>
+                    <button type="submit" className="min-h-11 rounded-xl border border-border px-3 py-2 text-sm hover:bg-surface-alt">{service.is_active ? "Nonaktifkan" : "Aktifkan"}</button>
                   </form>
                   <form action={deleteService}>
                     <input type="hidden" name="id" value={service.id} />
-                    <button type="submit" className="rounded-xl border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50">Hapus</button>
+                    <button type="submit" className="min-h-11 rounded-xl border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:border-red-900/40 dark:hover:bg-red-950/30">Hapus</button>
                   </form>
                 </div>
               </div>
-            </div>
+            </Panel>
           ))}
         </section>
       </div>
