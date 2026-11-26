@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const HOURS = Array.from({ length: 11 }, (_, i) => 8 + i); // 08:00 - 18:00
+const HOURS = Array.from({ length: 10 }, (_, i) => 8 + i); // 08:00 - 17:00
 
 function formatHour(hour: number) {
   return `${String(hour).padStart(2, "0")}:00`;
@@ -24,54 +24,46 @@ export function TodaySchedule() {
   const currentMinutes = now ? now.getHours() * 60 + now.getMinutes() : null;
   const startMinutes = HOURS[0] * 60;
   const endMinutes = HOURS[HOURS.length - 1] * 60;
-  const showMarker =
-    currentMinutes !== null && currentMinutes >= startMinutes && currentMinutes <= endMinutes;
-  const markerTop =
-    showMarker && currentMinutes !== null
-      ? ((currentMinutes - startMinutes) / (endMinutes - startMinutes)) * 100
-      : null;
+  const showMarker = currentMinutes !== null && currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+  const markerTop = showMarker && currentMinutes !== null ? ((currentMinutes - startMinutes) / (endMinutes - startMinutes)) * 100 : null;
 
   return (
-    <div className="rounded-2xl border border-garis bg-putih">
-      <div className="border-b border-garis px-5 py-4">
-        <p className="font-display text-lg font-semibold text-tinta">Hari ini</p>
-        <p className="mt-1 text-sm text-[#5b6b80]">Buku jadwal harian</p>
-      </div>
-
-      <div className="px-5 py-5">
+    <div>
+      <div className="px-5 py-5 sm:px-6">
         <div className="relative">
           <div>
             {HOURS.map((hour) => (
-              <div key={hour} className="grid grid-cols-[56px_1fr] items-start gap-3 py-3">
-                <div className="font-display text-sm font-semibold text-tinta">{formatHour(hour)}</div>
-                <div className="mt-2 border-t border-dashed border-garis" />
+              <div key={hour} className="grid grid-cols-[64px_1fr] items-start gap-4 py-4 sm:grid-cols-[72px_1fr]">
+                <div className="font-ui text-sm font-medium tabular-nums text-muted">{formatHour(hour)}</div>
+                <div className="mt-2 border-t border-border/80" />
               </div>
             ))}
           </div>
 
           {showMarker && markerTop !== null ? (
-            <div
-              className="pointer-events-none absolute inset-x-0"
-              style={{ top: `${markerTop}%` }}
-              aria-hidden="true"
-            >
-              <div className="grid grid-cols-[56px_1fr] items-center gap-3 -translate-y-1/2">
-                <span className="w-fit rounded-md bg-tinta px-2 py-1 text-[11px] font-semibold text-putih">Sekarang</span>
-                <div
-                  className="h-2 rounded-full border border-garis"
-                  style={{
-                    background:
-                      "repeating-linear-gradient(45deg, #D6322E 0 8px, #FFFFFF 8px 16px, #2F5D9B 16px 24px, #FFFFFF 24px 32px)",
-                  }}
-                />
+            <div className="pointer-events-none absolute inset-x-0" style={{ top: `${markerTop}%` }} aria-hidden="true">
+              <div className="grid -translate-y-1/2 grid-cols-[64px_1fr] items-center gap-4 sm:grid-cols-[72px_1fr]">
+                <span className="w-fit rounded-md bg-foreground px-2 py-1 text-[11px] font-semibold text-background">
+                  Sekarang
+                </span>
+                <div className="relative h-[3px] overflow-hidden rounded-full bg-foreground/15">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(90deg, #D6322E 0 14px, #F8F7F4 14px 28px, #2F5D9B 28px 42px, #F8F7F4 42px 56px)",
+                      opacity: 0.95,
+                    }}
+                  />
+                </div>
               </div>
             </div>
           ) : null}
         </div>
       </div>
 
-      <div className="border-t border-garis px-5 py-4">
-        <p className="text-sm text-[#4d5e73]">
+      <div className="border-t border-border px-5 py-4 sm:px-6">
+        <p className="text-sm leading-6 text-muted">
           Belum ada booking hari ini. Tambah layanan dan atur jam buka supaya pelanggan bisa mulai booking.
         </p>
       </div>

@@ -1,28 +1,26 @@
 import type { ReactNode } from "react";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { logout } from "./actions";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const logoutButton = (
     <form action={logout}>
-      <button
-        type="submit"
-        className="flex min-h-11 w-full items-center rounded-xl px-3 text-sm font-medium text-[#c7d4e3] transition-colors hover:bg-putih/8 hover:text-putih focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-biru-tiang"
-      >
+      <button type="submit" className="text-sm text-muted transition-colors hover:text-foreground">
         Keluar
       </button>
     </form>
   );
 
   return (
-    <div className="min-h-screen bg-porselen md:flex">
+    <div className="min-h-screen bg-background transition-colors duration-200 md:flex">
       <SidebarNav footer={logoutButton} />
       <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
-        <div className="flex items-center justify-between border-b border-garis bg-putih px-5 py-3 md:hidden">
-          <p className="font-display text-lg font-semibold text-tinta">Nuvora</p>
-          <form action={logout}>
-            <button type="submit" className="min-h-11 px-2 text-sm font-medium text-[#4d5e73]">Keluar</button>
-          </form>
+        <div className="flex items-center justify-between border-b border-border bg-surface px-5 py-3 transition-colors duration-200 md:hidden">
+          <p className="font-display text-xl font-semibold text-foreground">Nuvora</p>
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="min-h-10 px-2.5 py-2" />
+          </div>
         </div>
         {children}
       </div>

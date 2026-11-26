@@ -23,30 +23,24 @@ export function CopyBookingLink({ bookingPath }: { bookingPath: string }) {
   }
 
   return (
-    <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-garis bg-putih p-3 sm:flex-row sm:items-center">
-      <div className="min-w-0 flex-1 rounded-xl bg-porselen px-4 py-3">
-        <p className="text-xs font-medium text-[#5b6b80]">Link booking</p>
-        <p className="truncate font-display text-base font-semibold text-tinta">{bookingPath}</p>
-      </div>
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={copy}
-          className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-tinta px-4 py-2.5 text-sm font-medium text-putih transition-colors hover:bg-[#1a2940] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-biru-tiang focus-visible:ring-offset-2 sm:flex-none"
-        >
-          {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
-          {copied ? "Tersalin" : "Salin link"}
-        </button>
-        <a
-          href={bookingPath}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-garis bg-putih px-4 py-2.5 text-sm font-medium text-tinta transition-colors hover:bg-porselen focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-biru-tiang focus-visible:ring-offset-2 sm:flex-none"
-        >
-          <ExternalLink size={16} aria-hidden="true" />
-          Buka halaman
-        </a>
-      </div>
+    <div className="flex flex-col gap-2 sm:flex-row">
+      <button
+        type="button"
+        onClick={copy}
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+      >
+        {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
+        {copied ? "Tersalin" : "Salin link"}
+      </button>
+      <a
+        href={bookingPath}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-background transition-colors duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+      >
+        <ExternalLink size={16} aria-hidden="true" />
+        Buka halaman
+      </a>
     </div>
   );
 }

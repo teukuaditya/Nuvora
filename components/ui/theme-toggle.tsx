@@ -1,0 +1,47 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
+
+type Theme = "light" | "dark";
+
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  const stored = window.localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      const initial = getInitialTheme();
+      setTheme(initial);
+      document.documentElement.classList.toggle("dark", initial === "dark");
+      setMounted(true);
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  function toggle() {
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.classList.toggle("dark", next === "dark");
+    window.localStorage.setItem("theme", next);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={theme === "dark" ? "Aktifkan mode terang" : "Aktifkan mode malam"}
+      className={`inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
+    >
+      {mounted && theme === "dark" ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+      <span>{mounted && theme === "dark" ? "Mode terang" : "Mode malam"}</span>
+    </button>
+  );
+}
