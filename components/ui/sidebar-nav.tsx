@@ -28,7 +28,7 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
       </div>
 
       <div className="px-6 mb-8">
-        <div className="flex items-center gap-4 rounded-2xl border border-[#d4baa0] bg-[#dcc5ac]/55 p-4 dark:border-border dark:bg-surface-alt/40">
+        <div className="flex items-center gap-4 rounded-2xl border border-stone-100 bg-stone-50 p-4 dark:border-border dark:bg-surface-alt/40">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 font-bold text-stone-700 dark:bg-surface-alt dark:text-foreground">{initial}</div>
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400 dark:text-muted">Ruang Kerja</p>
@@ -49,8 +49,8 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all duration-300 ${
                 active
-                  ? "border-r-[3px] border-primary-dark bg-[#d4b895] font-semibold text-primary-dark dark:bg-primary-soft dark:text-primary"
-                  : "text-stone-600 hover:bg-[#dcc5ac]/60 dark:text-muted dark:hover:bg-surface-alt dark:hover:text-foreground"
+                  ? "border-r-[3px] border-primary-dark bg-[#f8f5f0] font-semibold text-primary-dark dark:bg-primary-soft dark:text-primary"
+                  : "text-stone-500 hover:bg-stone-50 dark:text-muted dark:hover:bg-surface-alt dark:hover:text-foreground"
               }`}
             >
               <Icon size={20} />
@@ -60,7 +60,7 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
         })}
       </nav>
 
-      <div className="mt-auto space-y-2 border-t border-[#d4baa0] p-6 dark:border-border">
+      <div className="mt-auto space-y-2 border-t border-stone-50 p-6 dark:border-border">
         <ThemeToggle className="w-full justify-between rounded-xl border-0 bg-transparent px-3 hover:bg-stone-50 dark:hover:bg-surface-alt" />
         <div className="flex items-center gap-3 px-4 py-3 text-stone-400 dark:text-muted">
           <LogOut size={20} />
@@ -72,11 +72,11 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
 
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-50 hidden w-72 flex-col border-r border-[#d4baa0] bg-gradient-to-b from-[#ecdcc8] via-[#e6d2bc] to-[#dcc4a8] dark:border-border dark:bg-sidebar dark:bg-none md:flex">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-72 flex-col border-r border-stone-100 bg-white dark:border-border dark:bg-sidebar md:flex">
         {content}
       </aside>
 
-      <div className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-[#d4baa0] bg-[#e8d5c0]/92 px-5 backdrop-blur-md dark:border-border dark:bg-background/80 md:hidden">
+      <div className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-stone-100 bg-white/80 px-5 backdrop-blur-md dark:border-border dark:bg-background/80 md:hidden">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-dark to-primary text-white"><Scissors size={18} /></div>
           <span className="text-lg font-extrabold tracking-tight text-stone-800 dark:text-foreground">Nuvora</span>
@@ -89,7 +89,7 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
       {mobileOpen ? (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <aside className="absolute inset-y-0 left-0 flex w-72 flex-col border-r border-[#d4baa0] bg-gradient-to-b from-[#ecdcc8] to-[#dcc4a8] dark:border-border dark:bg-sidebar dark:bg-none">
+          <aside className="absolute inset-y-0 left-0 flex w-72 flex-col border-r border-stone-100 bg-white dark:border-border dark:bg-sidebar">
             <button type="button" onClick={() => setMobileOpen(false)} className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-xl text-stone-400 hover:bg-stone-50 dark:hover:bg-surface-alt" aria-label="Tutup menu">
               <X size={18} />
             </button>

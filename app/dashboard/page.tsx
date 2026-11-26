@@ -79,7 +79,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="min-w-0 flex-1">
-      <header className="sticky top-0 z-40 flex h-20 items-center justify-between bg-[#eadbc8]/88 px-6 backdrop-blur-md dark:bg-background/80 md:px-10">
+      <header className="sticky top-0 z-40 flex h-20 items-center justify-between bg-white/80 px-6 backdrop-blur-md dark:bg-background/80 md:px-10">
         <div className="flex items-center gap-2 text-xs font-medium text-stone-400 dark:text-muted">
           <span>Dasbor</span>
           <ChevronRight size={14} />
@@ -87,7 +87,7 @@ export default async function DashboardPage() {
         </div>
         <div className="flex items-center gap-6">
           <button type="button" className="relative p-2 text-stone-400 transition-colors hover:text-stone-800 dark:hover:text-foreground" aria-label="Notifikasi">
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-[#eadbc8] bg-red-500 dark:border-background" />
+            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-red-500 dark:border-background" />
             <Bell size={24} />
           </button>
           <div className="hidden h-8 w-px bg-stone-100 dark:bg-border sm:block" />
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
               <p className="text-sm font-bold text-foreground">{business.name}</p>
               <p className="text-[10px] font-bold uppercase text-amber-600">Pemilik</p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d4baa0] bg-[#dcc5ac] font-bold text-stone-700 dark:border-border dark:bg-surface-alt dark:text-foreground">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-stone-100 font-bold text-stone-700 dark:border-border dark:bg-surface-alt dark:text-foreground">
               {business.name.trim().charAt(0).toUpperCase()}
             </div>
           </div>
@@ -118,7 +118,7 @@ export default async function DashboardPage() {
           ].map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.label} className="rounded-[2rem] border border-amber-100/70 bg-gradient-to-bl from-primary/55 via-primary-soft/80 to-[#f7efe4] p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 dark:border-border dark:from-primary-dark/45 dark:via-surface dark:to-surface">
+              <div key={card.label} className="rounded-[2rem] border border-stone-50 bg-white p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 dark:border-border dark:bg-surface">
                 <div className="mb-4 flex items-start justify-between">
                   <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${card.iconWrap}`}><Icon size={24} /></div>
                 </div>
@@ -132,7 +132,7 @@ export default async function DashboardPage() {
 
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 space-y-8 lg:col-span-8">
-            <div className="rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-primary/50 via-primary-soft/75 to-[#f7efe4] p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-dark/40 dark:via-surface dark:to-surface">
+            <div className="rounded-[2.5rem] border border-stone-100 bg-white p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:bg-surface">
               <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
                 <div className="flex items-center gap-6">
                   <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-amber-50 text-amber-600 dark:bg-primary-soft dark:text-primary"><Globe size={30} /></div>
@@ -145,8 +145,8 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-primary/50 via-primary-soft/75 to-[#f7efe4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-dark/40 dark:via-surface dark:to-surface">
-              <div className="flex items-center justify-between border-b border-stone-100/80 p-8 dark:border-border">
+            <div className="overflow-hidden rounded-[2.5rem] border border-stone-100 bg-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:bg-surface">
+              <div className="flex items-center justify-between border-b border-stone-50 p-8 dark:border-border">
                 <div>
                   <h3 className="text-lg font-bold text-stone-800 dark:text-foreground">Jadwal Hari Ini</h3>
                   <p className="text-sm text-stone-400 dark:text-muted">Antrean berdasarkan jam reservasi</p>
@@ -155,13 +155,13 @@ export default async function DashboardPage() {
               </div>
               <div className="p-8">
                 {todayBookings.length === 0 ? (
-                  <div className="rounded-3xl border border-dashed border-[#d4baa0] bg-[#dcc5ac]/45 px-6 py-12 text-center text-sm text-stone-500 dark:border-border dark:bg-surface-alt/30 dark:text-muted">Belum ada booking hari ini.</div>
+                  <div className="rounded-3xl border border-dashed border-stone-200 bg-stone-50 px-6 py-12 text-center text-sm text-stone-500 dark:border-border dark:bg-surface-alt/30 dark:text-muted">Belum ada booking hari ini.</div>
                 ) : (
                   <div className="space-y-4">
                     {todayBookings.map((b) => {
                       const serviceName = Array.isArray(b.services) ? b.services[0]?.name : (b.services as { name?: string } | null)?.name;
                       return (
-                        <div key={b.id} className="relative flex flex-col gap-4 rounded-3xl border border-amber-100/50 bg-gradient-to-r from-amber-50/50 to-white p-6 dark:border-border dark:from-primary-soft/10 dark:to-surface-alt/30 sm:flex-row sm:items-center sm:gap-6">
+                        <div key={b.id} className="relative flex flex-col gap-4 rounded-3xl border border-stone-100 bg-stone-50 p-6 dark:border-border dark:bg-surface-alt/30 sm:flex-row sm:items-center sm:gap-6">
                           <div className="text-center sm:min-w-[110px]">
                             <span className="block text-xs font-bold uppercase text-stone-400 dark:text-muted">Waktu</span>
                             <span className="block text-sm font-extrabold text-stone-800 dark:text-foreground">{fmtTime(b.starts_at, business.timezone)} - {fmtTime(b.ends_at, business.timezone)}</span>
@@ -187,7 +187,7 @@ export default async function DashboardPage() {
           </div>
 
           <div className="col-span-12 space-y-8 lg:col-span-4">
-            <div className="rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-primary/50 via-primary-soft/75 to-[#f7efe4] p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-dark/40 dark:via-surface dark:to-surface">
+            <div className="rounded-[2.5rem] border border-stone-100 bg-white p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:bg-surface">
               <h3 className="mb-6 text-lg font-bold text-stone-800 dark:text-foreground">Aksi cepat</h3>
               <div className="space-y-3">
                 <Link href="/dashboard/layanan" className="group flex w-full items-center gap-4 rounded-2xl border border-stone-100 p-4 text-left transition-all duration-300 hover:border-amber-200 hover:bg-stone-50 dark:border-border dark:hover:border-primary/30 dark:hover:bg-surface-alt">
