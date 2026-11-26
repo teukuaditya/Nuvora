@@ -74,7 +74,12 @@ export async function deleteService(formData: FormData) {
     .eq("id", id)
     .eq("business_id", businessId);
 
-  if (error) redirect(`/dashboard/layanan?error=${encodeURIComponent(error.message)}`);
+  if (error) {
+    const message = error.code === "23503"
+      ? "Layanan tidak bisa dihapus karena sudah memiliki riwayat booking. Nonaktifkan layanan saja."
+      : error.message;
+    redirect(`/dashboard/layanan?error=${encodeURIComponent(message)}`);
+  }
   revalidatePath("/dashboard/layanan");
   redirect("/dashboard/layanan?message=Layanan%20dihapus");
 }
