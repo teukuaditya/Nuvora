@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Panel } from "@/components/ui/panel";
-import { createService, deleteService, toggleService } from "./actions";
+import { createService, deleteService, toggleService, updateService } from "./actions";
 
 export const instant = false;
 
@@ -68,7 +68,7 @@ export default async function LayananPage({
                   <p className="mt-1 text-sm text-muted">{service.duration_minutes} menit{service.price != null ? ` · Rp${service.price}` : ""}</p>
                   {service.description ? <p className="text-sm text-muted">{service.description}</p> : null}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <form action={toggleService}>
                     <input type="hidden" name="id" value={service.id} />
                     <input type="hidden" name="is_active" value={String(service.is_active)} />
@@ -80,6 +80,18 @@ export default async function LayananPage({
                   </form>
                 </div>
               </div>
+
+              <details className="mt-5 rounded-2xl border border-border bg-surface-alt/20 p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-primary-dark dark:text-primary">Edit layanan</summary>
+                <form action={updateService} className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <input type="hidden" name="id" value={service.id} />
+                  <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-semibold">Nama layanan</span><input name="name" required defaultValue={service.name} className="w-full rounded-2xl border border-border bg-surface/70 px-4 py-3 outline-none transition focus:border-primary" /></label>
+                  <label className="text-sm sm:col-span-2"><span className="mb-1.5 block font-semibold">Deskripsi (opsional)</span><input name="description" defaultValue={service.description ?? ""} className="w-full rounded-2xl border border-border bg-surface/70 px-4 py-3 outline-none transition focus:border-primary" /></label>
+                  <label className="text-sm"><span className="mb-1.5 block font-semibold">Durasi (menit)</span><input name="duration_minutes" type="number" min="1" required defaultValue={service.duration_minutes} className="w-full rounded-2xl border border-border bg-surface/70 px-4 py-3 outline-none transition focus:border-primary" /></label>
+                  <label className="text-sm"><span className="mb-1.5 block font-semibold">Harga (opsional)</span><input name="price" type="number" min="0" defaultValue={service.price ?? ""} className="w-full rounded-2xl border border-border bg-surface/70 px-4 py-3 outline-none transition focus:border-primary" /></label>
+                  <div className="sm:col-span-2"><button type="submit" className="rounded-2xl bg-primary px-5 py-3 text-sm font-bold text-[#1a1a1e] transition-all duration-300 hover:bg-primary-dark hover:text-white active:scale-95">Simpan perubahan</button></div>
+                </form>
+              </details>
             </Panel>
           ))}
         </section>

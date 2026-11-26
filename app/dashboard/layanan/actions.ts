@@ -64,6 +64,40 @@ export async function toggleService(formData: FormData) {
   revalidatePath("/dashboard/layanan");
 }
 
+export async function updateService(formData: FormData) {
+  const { supabase, businessId } = await getOwnedBusinessId();
+  const id = String(formData.get("id") ?? "");
+  const name = String(formData.get("name") ?? "").trim();
+  const description = String(formData.get("description") ?? "").trim();
+  const durationMinutes = Number(formData.get("duration_minutes") ?? 0);
+  const priceRaw = String(formData.get("price") ?? "").trim();
+  const price = priceRaw === "" ? null : Number(priceRaw);
+
+  if (!id) redirect("/dashboard/layanan?error=Layanan%20tidak%20valid");
+  if (!name) redirect("/dashboard/layanan?error=Nama%20layanan%20wajib%20diisi");
+  if (!Number.isInteger(durationMinutes) || durationMinutes <= 0) {
+    redirect("/dashboard/layanan?error=Durasi%20harus%20lebih%20dari%200");
+  }
+  if (price !== null && (!Number.isInteger(price) || price < 0)) {
+    redirect("/dashboard/layanan?error=Harga%20tidak%20valid");
+  }
+
+  const { error } = await supabase
+    .from("services")
+    .update({
+      name,
+      description: description || null,
+      duration_minutes: durationMinutes,
+      price,
+    })
+    .eq("id", id)
+    .eq("business_id", businessId);
+
+  if (error) redirect(`/dashboard/layanan?error=${encodeURIComponent(error.message)}`);
+  revalidatePath("/dashboard/layanan");
+  redirect("/dashboard/layanan?message=Layanan%20berhasil%20diperbarui");
+}
+
 export async function deleteService(formData: FormData) {
   const { supabase, businessId } = await getOwnedBusinessId();
   const id = String(formData.get("id") ?? "");
