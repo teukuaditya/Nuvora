@@ -4,11 +4,11 @@
 
 :root {
   --background: #fcfbf7;
-  --foreground: #1a1a1e;
+  --foreground: #1a1a1a;
   --surface: #ffffff;
-  --surface-alt: #f4ebe2;
+  --surface-alt: #f8f5f0;
   --muted: #71717a;
-  --border: #e7e0d8;
+  --border: #e7e5e4;
   --primary: #d4a373;
   --primary-dark: #9c6644;
   --primary-light: #e6c3a1;
@@ -18,29 +18,28 @@
   --gold: #d4a373;
   --now: #d4a373;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1a1a1e;
-  --sidebar-muted: #71717a;
-  --sidebar-active: #f4ebe2;
-  --sidebar-border: #e7e0d8;
-  /* legacy */
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-muted: #78716c;
+  --sidebar-active: #f8f5f0;
+  --sidebar-border: #f5f5f4;
   --brand: #d4a373;
   --brand-dark: #9c6644;
   --brand-soft: #f4ebe2;
-  --tinta: #1a1a1e;
+  --tinta: #1a1a1a;
   --porselen: #fcfbf7;
   --putih: #ffffff;
-  --garis: #e7e0d8;
+  --garis: #e7e5e4;
   --merah-tiang: #ef4444;
   --biru-tiang: #d4a373;
 }
 
 .dark {
-  --background: #0c0c0e;
-  --foreground: #f5f1ed;
-  --surface: rgba(23, 23, 26, 0.72);
-  --surface-alt: rgba(212, 163, 115, 0.08);
-  --muted: #a1a1aa;
-  --border: rgba(244, 235, 226, 0.1);
+  --background: #141210;
+  --foreground: #f5f5f4;
+  --surface: #1c1917;
+  --surface-alt: #292524;
+  --muted: #a8a29e;
+  --border: #292524;
   --primary: #d4a373;
   --primary-dark: #9c6644;
   --primary-light: #e6c3a1;
@@ -49,18 +48,18 @@
   --accent-soft: rgba(212, 163, 115, 0.14);
   --gold: #d4a373;
   --now: #d4a373;
-  --sidebar: rgba(23, 23, 26, 0.7);
-  --sidebar-foreground: #f5f1ed;
-  --sidebar-muted: #a1a1aa;
+  --sidebar: #1c1917;
+  --sidebar-foreground: #f5f5f4;
+  --sidebar-muted: #a8a29e;
   --sidebar-active: rgba(212, 163, 115, 0.14);
-  --sidebar-border: rgba(244, 235, 226, 0.08);
+  --sidebar-border: #292524;
   --brand: #d4a373;
   --brand-dark: #9c6644;
   --brand-soft: rgba(212, 163, 115, 0.14);
-  --tinta: #f5f1ed;
-  --porselen: #0c0c0e;
-  --putih: rgba(23, 23, 26, 0.72);
-  --garis: rgba(244, 235, 226, 0.1);
+  --tinta: #f5f5f4;
+  --porselen: #141210;
+  --putih: #1c1917;
+  --garis: #292524;
   --merah-tiang: #f87171;
   --biru-tiang: #d4a373;
 }

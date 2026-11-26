@@ -23,22 +23,22 @@ export function CopyBookingLink({ bookingPath }: { bookingPath: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 sm:flex-row">
+    <div className="flex items-center gap-3">
       <button
         type="button"
         onClick={copy}
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="inline-flex items-center gap-2 rounded-2xl border border-stone-200 bg-white px-6 py-3 text-sm font-bold text-stone-700 transition-all duration-300 hover:bg-stone-50 active:scale-95 dark:border-border dark:bg-surface dark:text-foreground dark:hover:bg-surface-alt"
       >
-        {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
+        {copied ? <Check size={16} /> : <Copy size={16} />}
         {copied ? "Tersalin" : "Salin link"}
       </button>
       <a
         href={bookingPath}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary-soft px-4 py-2.5 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-br from-primary-dark to-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-amber-200/50 transition-all duration-300 active:scale-95 dark:shadow-none"
       >
-        <ExternalLink size={16} aria-hidden="true" />
+        <ExternalLink size={16} />
         Buka halaman
       </a>
     </div>
