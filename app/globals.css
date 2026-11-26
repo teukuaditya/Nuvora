@@ -7,7 +7,7 @@
   --foreground: #18181b;
   --surface: #ffffff;
   --surface-alt: #f4f3ef;
-  --muted: #6b7280;
+  --muted: #4b5563;
   --border: #dcd8d0;
   --accent: #1e5641;
   --accent-soft: #eaf3ef;
@@ -35,7 +35,7 @@
   --foreground: #f3f4f6;
   --surface: #171a21;
   --surface-alt: #1d222b;
-  --muted: #9ca3af;
+  --muted: #c5ced8;
   --border: #2a303b;
   --accent: #d4b475;
   --accent-soft: #252219;
@@ -84,10 +84,10 @@
   --color-biru-tiang: var(--biru-tiang);
   --font-sans: var(--font-ui);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
+  --font-display: var(--font-ui);
+  --font-body: var(--font-ui);
   --font-ui: var(--font-ui);
-  --font-serif: var(--font-serif);
+  --font-serif: var(--font-ui);
 }
 
 body {

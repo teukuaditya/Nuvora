@@ -16,7 +16,7 @@ export function PageHeader({
       <div>
         {eyebrow ? <p className="font-display text-sm font-semibold text-biru-tiang">{eyebrow}</p> : null}
         <h1 className="font-display text-3xl font-semibold tracking-tight text-tinta sm:text-4xl">{title}</h1>
-        {description ? <p className="mt-2 max-w-2xl text-sm leading-6 text-[#4d5e73]">{description}</p> : null}
+        {description ? <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap gap-2">{actions}</div> : null}
     </div>
