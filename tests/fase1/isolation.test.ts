@@ -1,5 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { beforeAll, describe, expect, it } from "vitest";
+import WebSocket from "ws";
+
+if (!globalThis.WebSocket) {
+  (globalThis as unknown as { WebSocket: typeof WebSocket }).WebSocket = WebSocket;
+}
 
 const SUPABASE_URL = process.env.SUPABASE_TEST_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_TEST_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -78,7 +83,7 @@ describeIf("Fase 1 - isolasi data dan anti-bentrok", () => {
     expect(sBErr).toBeNull();
   });
 
-  it("pemilik bisnis A tidak boleh membaca data bisnis B", async () => {
+  it("pemilik bisnis A tidak boleh membaca booking bisnis B", async () => {
     const clientA = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
@@ -88,7 +93,20 @@ describeIf("Fase 1 - isolasi data dan anti-bentrok", () => {
     });
     expect(loginErr).toBeNull();
 
-    const { data, error } = await clientA.from("services").select("id").eq("business_id", businessB);
+    const start = new Date(Date.now() + 3_600_000).toISOString();
+    const end = new Date(Date.now() + 5_400_000).toISOString();
+    const { error: insertErr } = await admin.from("bookings").insert({
+      business_id: businessB,
+      service_id: (await admin.from("services").select("id").eq("business_id", businessB).single()).data!.id,
+      customer_name: "Pelanggan B",
+      customer_email: "b@example.com",
+      starts_at: start,
+      ends_at: end,
+      status: "booked",
+    });
+    expect(insertErr).toBeNull();
+
+    const { data, error } = await clientA.from("bookings").select("id").eq("business_id", businessB);
     expect(error).toBeNull();
     expect(data ?? []).toHaveLength(0);
   });
