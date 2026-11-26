@@ -69,14 +69,22 @@ export function NotificationBell({ businessId, initial }: { businessId: string; 
         className={`relative inline-flex h-10 w-10 items-center justify-center rounded-xl transition-colors hover:bg-stone-50 hover:text-stone-800 dark:hover:bg-surface-alt dark:hover:text-foreground ${unread > 0 ? "text-primary-dark dark:text-primary" : "text-stone-400"}`}
         aria-label="Notifikasi"
       >
-        {unread > 0 ? <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500 dark:border-background animate-pulse" /> : null}
+        {unread > 0 ? <span className="absolute -right-1 -top-1 inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white ring-2 ring-white dark:ring-background">{unread > 9 ? "9+" : unread}</span> : null}
         <Bell size={20} />
       </button>
 
       {toast && !open ? (
-        <div className="absolute right-0 top-12 z-[60] w-80 rounded-2xl border border-primary/20 bg-white p-4 shadow-xl dark:border-primary/30 dark:bg-surface">
-          <p className="text-xs font-bold uppercase tracking-wider text-primary-dark dark:text-primary">Booking baru masuk</p>
-          <p className="mt-1 text-sm font-semibold text-foreground">{toast.detail}</p>
+        <div className="absolute right-0 top-12 z-[60] w-80 rounded-2xl border border-primary/25 bg-white p-4 shadow-2xl ring-1 ring-primary/10 dark:border-primary/30 dark:bg-surface">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-dark dark:text-primary">
+              <Bell size={16} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary-dark dark:text-primary">Booking baru masuk</p>
+              <p className="mt-1 text-sm font-semibold text-foreground">{toast.detail}</p>
+              <p className="mt-2 text-xs text-muted">Cek jadwal untuk detail booking.</p>
+            </div>
+          </div>
         </div>
       ) : null}
 
