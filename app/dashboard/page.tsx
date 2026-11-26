@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Bell, Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Globe, Plus, Scissors, SlidersHorizontal, Users2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { CopyBookingLink } from "./copy-booking-link";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const instant = false;
 
@@ -85,10 +86,11 @@ export default async function DashboardPage() {
           <ChevronRight size={14} />
           <span className="text-stone-800 dark:text-foreground">Ringkasan</span>
         </div>
-        <div className="flex items-center gap-6">
-          <button type="button" className="relative p-2 text-stone-400 transition-colors hover:text-stone-800 dark:hover:text-foreground" aria-label="Notifikasi">
+        <div className="flex items-center gap-3">
+          <ThemeToggle iconOnly className="min-h-10 min-w-10 justify-center rounded-xl border-stone-200 bg-white px-0 text-stone-500 hover:bg-stone-50 hover:text-stone-800 dark:border-border dark:bg-surface dark:text-muted dark:hover:bg-surface-alt dark:hover:text-foreground" />
+          <button type="button" className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-stone-400 transition-colors hover:bg-stone-50 hover:text-stone-800 dark:hover:bg-surface-alt dark:hover:text-foreground" aria-label="Notifikasi">
             <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-red-500 dark:border-background" />
-            <Bell size={24} />
+            <Bell size={20} />
           </button>
           <div className="hidden h-8 w-px bg-stone-100 dark:bg-border sm:block" />
           <div className="flex items-center gap-3">
