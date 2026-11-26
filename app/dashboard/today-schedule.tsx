@@ -8,10 +8,6 @@ function formatHour(hour: number) {
   return `${String(hour).padStart(2, "0")}:00`;
 }
 
-function formatNow(date: Date) {
-  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
-}
-
 export function TodaySchedule() {
   const [now, setNow] = useState<Date | null>(null);
 
@@ -49,13 +45,12 @@ export function TodaySchedule() {
           {showMarker && markerTop !== null && now ? (
             <div className="pointer-events-none absolute inset-x-0 z-10" style={{ top: `${markerTop}%` }} aria-hidden="true">
               <div className="grid -translate-y-1/2 grid-cols-[64px_1fr] items-center gap-4 sm:grid-cols-[72px_1fr]">
-                <div className="flex justify-start">
-                  <span className="rounded-lg bg-foreground px-2.5 py-1.5 text-[11px] font-semibold tabular-nums text-background shadow-sm">
-                    Sekarang {formatNow(now)}
-                  </span>
-                </div>
+                <div />
                 <div className="relative flex items-center">
-                  <span className="absolute -left-1.5 h-3 w-3 rounded-full border-2 border-background bg-foreground" />
+                  <span className="absolute -left-1.5 h-3 w-3 rounded-full border-2 border-surface bg-foreground" />
+                  <span className="absolute -top-7 left-0 rounded-md bg-foreground px-2 py-1 text-[11px] font-semibold text-background shadow-sm">
+                    Sekarang
+                  </span>
                   <div className="h-[3px] w-full overflow-hidden rounded-full bg-foreground/15">
                     <div
                       className="h-full w-full"
