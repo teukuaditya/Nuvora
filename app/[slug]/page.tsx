@@ -4,11 +4,7 @@ import BookingForm from "./booking-form";
 
 export const instant = false;
 
-export default async function PublicBookingPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PublicBookingPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
 
@@ -17,7 +13,6 @@ export default async function PublicBookingPage({
     .select("id, name, description, address, phone, timezone")
     .eq("slug", slug)
     .maybeSingle();
-
   if (!business) notFound();
 
   const { data: services } = await supabase
@@ -28,20 +23,24 @@ export default async function PublicBookingPage({
     .order("created_at", { ascending: true });
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-6 py-12">
-      <p className="text-sm font-medium tracking-wide text-gray-500">NUVORA</p>
-      <h1 className="mt-2 text-3xl font-semibold">{business.name}</h1>
-      {business.description ? <p className="mt-2 text-gray-600">{business.description}</p> : null}
-      {business.address ? <p className="mt-1 text-sm text-gray-500">{business.address}</p> : null}
+    <main className="min-h-screen px-6 py-10 sm:py-14">
+      <div className="mx-auto w-full max-w-3xl">
+        <div className="rounded-3xl border border-border bg-surface p-6 shadow-sm sm:p-8">
+          <p className="text-xs font-semibold tracking-wide text-brand">BOOKING ONLINE</p>
+          <h1 className="mt-2 text-3xl font-semibold">{business.name}</h1>
+          {business.description ? <p className="mt-2 text-muted">{business.description}</p> : null}
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
+            {business.address ? <span>{business.address}</span> : null}
+            {business.phone ? <span>{business.phone}</span> : null}
+          </div>
+        </div>
 
-      <section className="mt-8">
-        <h2 className="text-lg font-medium">Pilih jadwal</h2>
-        <BookingForm
-          businessId={business.id}
-          timezone={business.timezone}
-          services={services ?? []}
-        />
-      </section>
+        <section className="mt-6 rounded-3xl border border-border bg-surface p-6 shadow-sm sm:p-8">
+          <h2 className="text-xl font-semibold">Pilih jadwal</h2>
+          <p className="mt-1 text-sm text-muted">Pilih layanan, tanggal, dan jam yang tersedia.</p>
+          <BookingForm businessId={business.id} timezone={business.timezone} services={services ?? []} />
+        </section>
+      </div>
     </main>
   );
 }
