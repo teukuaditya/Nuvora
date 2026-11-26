@@ -27,7 +27,7 @@ export function CopyBookingLink({ bookingPath }: { bookingPath: string }) {
       <button
         type="button"
         onClick={copy}
-        className="inline-flex items-center gap-2 rounded-2xl border border-[#dcc8b3] bg-[#fffaf5] px-6 py-3 text-sm font-bold text-stone-700 transition-all duration-300 hover:bg-[#efe4d8] active:scale-95 dark:border-border dark:bg-surface dark:text-foreground dark:hover:bg-surface-alt"
+        className="inline-flex items-center gap-2 rounded-2xl border border-[#d4baa0] bg-[#f7efe4] px-6 py-3 text-sm font-bold text-stone-700 transition-all duration-300 hover:bg-[#dcc5ac]/60 active:scale-95 dark:border-border dark:bg-surface dark:text-foreground dark:hover:bg-surface-alt"
       >
         {copied ? <Check size={16} /> : <Copy size={16} />}
         {copied ? "Tersalin" : "Salin link"}
