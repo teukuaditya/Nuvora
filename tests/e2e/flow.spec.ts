@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("redirect ke login saat buka dashboard tanpa sesi", async ({ page }) => {
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/login/);
-  await expect(page.getByRole("heading", { name: "Masuk ke akun kamu" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Masuk ke Nuvora" })).toBeVisible();
 });
 
 test("halaman onboarding redirect ke login tanpa sesi", async ({ page }) => {

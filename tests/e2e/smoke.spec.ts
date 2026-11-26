@@ -8,14 +8,14 @@ test("landing page tampil", async ({ page }) => {
 
 test("halaman login tampil", async ({ page }) => {
   await page.goto("/login");
-  await expect(page.getByRole("heading", { name: "Masuk ke akun kamu" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Masuk ke Nuvora" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Masuk" })).toBeVisible();
 });
 
 test("halaman daftar tampil", async ({ page }) => {
   await page.goto("/daftar");
-  await expect(page.getByRole("heading", { name: "Buat akun bisnis" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Daftar" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Buat akun Nuvora" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Buat akun" })).toBeVisible();
 });
 
 test("slug bisnis tidak dikenal menampilkan 404", async ({ page }) => {
