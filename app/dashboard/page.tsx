@@ -79,7 +79,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="min-w-0 flex-1">
-      <header className="sticky top-0 z-40 flex h-20 items-center justify-between bg-white/80 px-6 backdrop-blur-md dark:bg-background/80 md:px-10">
+      <header className="sticky top-0 z-40 flex h-20 items-center justify-between bg-[#fbf4ec]/85 px-6 backdrop-blur-md dark:bg-background/80 md:px-10">
         <div className="flex items-center gap-2 text-xs font-medium text-stone-400 dark:text-muted">
           <span>Dasbor</span>
           <ChevronRight size={14} />
@@ -87,7 +87,7 @@ export default async function DashboardPage() {
         </div>
         <div className="flex items-center gap-6">
           <button type="button" className="relative p-2 text-stone-400 transition-colors hover:text-stone-800 dark:hover:text-foreground" aria-label="Notifikasi">
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-red-500 dark:border-background" />
+            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-[#fbf4ec] bg-red-500 dark:border-background" />
             <Bell size={24} />
           </button>
           <div className="hidden h-8 w-px bg-stone-100 dark:bg-border sm:block" />
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
               <p className="text-sm font-bold text-foreground">{business.name}</p>
               <p className="text-[10px] font-bold uppercase text-amber-600">Pemilik</p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-stone-100 font-bold text-stone-700 dark:border-border dark:bg-surface-alt dark:text-foreground">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#ead9c8] bg-[#efe4d8] font-bold text-stone-700 dark:border-border dark:bg-surface-alt dark:text-foreground">
               {business.name.trim().charAt(0).toUpperCase()}
             </div>
           </div>
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
               </div>
               <div className="p-8">
                 {todayBookings.length === 0 ? (
-                  <div className="rounded-3xl border border-dashed border-stone-200 bg-stone-50 px-6 py-12 text-center text-sm text-stone-500 dark:border-border dark:bg-surface-alt/30 dark:text-muted">Belum ada booking hari ini.</div>
+                  <div className="rounded-3xl border border-dashed border-[#dcc8b3] bg-[#efe4d8]/50 px-6 py-12 text-center text-sm text-stone-500 dark:border-border dark:bg-surface-alt/30 dark:text-muted">Belum ada booking hari ini.</div>
                 ) : (
                   <div className="space-y-4">
                     {todayBookings.map((b) => {
