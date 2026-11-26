@@ -71,12 +71,14 @@ export default async function DashboardPage() {
     const svc = Array.isArray(b.services) ? b.services[0] : b.services;
     return sum + (Number(svc?.price) || 0);
   }, 0);
+  const fmtDateTime = (iso: string, timeZone: string) =>
+    new Intl.DateTimeFormat("id-ID", { timeZone, day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(iso));
   const initialNotifications = (recentRes.data ?? []).map((b) => {
     const serviceName = Array.isArray(b.services) ? b.services[0]?.name : (b.services as { name?: string } | null)?.name;
     return {
       id: b.id,
       title: "Booking baru",
-      detail: `${b.customer_name}${serviceName ? ` · ${serviceName}` : ""}${b.starts_at ? ` · ${fmtTime(b.starts_at, business.timezone)}` : ""}`,
+      detail: `${b.customer_name}${serviceName ? ` · ${serviceName}` : ""}${b.starts_at ? ` · ${fmtDateTime(b.starts_at, business.timezone)}` : ""}`,
       at: b.starts_at,
       read: true,
     };
