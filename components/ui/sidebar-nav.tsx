@@ -60,9 +60,9 @@ export function SidebarNav({ workspaceName, footer }: { workspaceName?: string; 
       </nav>
 
       <div className="mt-auto space-y-2 border-t border-stone-50 p-6 dark:border-border">
-        <div className="flex items-center gap-3 px-4 py-3 text-stone-400 dark:text-muted">
+        <div className="flex items-center gap-3 rounded-xl px-4 py-3 text-stone-500 transition-colors hover:bg-stone-50 hover:text-red-500 dark:text-muted dark:hover:bg-surface-alt dark:hover:text-red-400">
           <LogOut size={20} />
-          <div className="text-sm font-medium">{footer}</div>
+          <div className="text-sm font-medium [&_button]:text-inherit [&_button]:transition-colors">{footer}</div>
         </div>
       </div>
     </>

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
-import { Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Globe, Plus, Scissors, SlidersHorizontal, Users2 } from "lucide-react";
+import { Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Globe, LogOut, Plus, Scissors, SlidersHorizontal, Users2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { CopyBookingLink } from "./copy-booking-link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { NotificationBell } from "./notification-bell";
+import { logout } from "./actions";
 
 export const instant = false;
 
@@ -111,6 +112,11 @@ export default async function DashboardPage() {
               {business.name.trim().charAt(0).toUpperCase()}
             </div>
           </div>
+          <form action={logout}>
+            <button type="submit" className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20 dark:hover:text-red-400" aria-label="Keluar">
+              <LogOut size={18} />
+            </button>
+          </form>
         </div>
       </header>
 
