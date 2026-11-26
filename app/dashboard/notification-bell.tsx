@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Bell, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -21,6 +22,7 @@ function fmtTime(iso: string) {
 }
 
 export function NotificationBell({ businessId, initial }: { businessId: string; initial: Notif[] }) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Notif[]>(initial);
   const unread = useMemo(() => items.filter((i) => !i.read).length, [items]);
@@ -42,6 +44,7 @@ export function NotificationBell({ businessId, initial }: { businessId: string; 
             read: false,
           };
           setItems((prev) => [notif, ...prev].slice(0, 10));
+          router.refresh();
         },
       )
       .subscribe();
@@ -49,7 +52,7 @@ export function NotificationBell({ businessId, initial }: { businessId: string; 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [businessId]);
+  }, [businessId, router]);
 
   function markRead() {
     setItems((prev) => prev.map((i) => ({ ...i, read: true })));
