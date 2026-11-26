@@ -58,7 +58,7 @@ export default async function LoginPage({
             </Link>
           </div>
 
-          <div className="py-2 sm:py-4">
+          <div className="rounded-[2rem] border border-white/60 bg-white/70 p-8 backdrop-blur-sm dark:border-border dark:bg-surface/80 sm:p-10">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-dark dark:text-primary">Selamat datang kembali</p>
             <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 dark:text-foreground">Masuk ke Nuvora</h1>
             <p className="mt-2 text-sm text-stone-500 dark:text-muted">Akses dashboard dan kelola bisnis kamu.</p>
