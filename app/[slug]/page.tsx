@@ -39,9 +39,9 @@ export default async function PublicBookingPage({ params }: { params: Promise<{ 
         </div>
       </nav>
 
-      <header className="relative overflow-hidden bg-black pt-20 text-white">
+      <header className="relative flex min-h-screen items-center overflow-hidden bg-black pt-20 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,89,0.18),transparent_35%),linear-gradient(to_right,rgba(0,0,0,0.95),rgba(0,0,0,0.7),rgba(0,0,0,0.35))]" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2 lg:py-32">
+        <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2 lg:py-32">
           <div>
             <div className="flex items-center gap-3 text-[#C5A059]">
               <span className="h-px w-12 bg-[#C5A059]" />
@@ -79,8 +79,8 @@ export default async function PublicBookingPage({ params }: { params: Promise<{ 
         </div>
       </header>
 
-      <section id="services" className="bg-white py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="services" className="flex min-h-screen items-center bg-white py-24">
+        <div className="mx-auto w-full max-w-7xl px-6">
           <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C5A059]">Layanan</p>
@@ -106,9 +106,9 @@ export default async function PublicBookingPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      <section id="booking" className="relative overflow-hidden bg-[#0F0F0F] py-24 text-white">
+      <section id="booking" className="relative flex min-h-screen items-center overflow-hidden bg-[#0F0F0F] py-24 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(197,160,89,0.12),transparent_35%)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="relative mx-auto grid w-full max-w-7xl gap-14 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C5A059]">Reservasi Online</p>
             <h2 className="mt-4 font-display text-5xl leading-tight">Amankan <span className="italic text-[#C5A059]">Slot</span> Anda</h2>
