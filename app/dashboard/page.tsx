@@ -118,7 +118,7 @@ export default async function DashboardPage() {
           ].map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.label} className="rounded-[2rem] border border-amber-100/60 bg-gradient-to-br from-white via-amber-50/40 to-stone-50 p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 dark:border-border dark:from-surface dark:via-surface dark:to-primary-soft/20">
+              <div key={card.label} className="rounded-[2rem] border border-amber-100/70 bg-gradient-to-bl from-amber-100/70 via-orange-50/30 to-white p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 dark:border-border dark:from-primary-soft/25 dark:via-surface dark:to-surface">
                 <div className="mb-4 flex items-start justify-between">
                   <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${card.iconWrap}`}><Icon size={24} /></div>
                 </div>
@@ -132,7 +132,7 @@ export default async function DashboardPage() {
 
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 space-y-8 lg:col-span-8">
-            <div className="rounded-[2.5rem] border border-amber-100/60 bg-gradient-to-br from-white via-amber-50/30 to-[#f8f5f0] p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-surface dark:via-surface dark:to-primary-soft/10">
+            <div className="rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-amber-100/60 via-orange-50/20 to-white p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-soft/20 dark:via-surface dark:to-surface">
               <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
                 <div className="flex items-center gap-6">
                   <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-amber-50 text-amber-600 dark:bg-primary-soft dark:text-primary"><Globe size={30} /></div>
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[2.5rem] border border-amber-100/60 bg-gradient-to-br from-white via-amber-50/20 to-stone-50 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-surface dark:via-surface dark:to-primary-soft/10">
+            <div className="overflow-hidden rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-amber-100/60 via-orange-50/20 to-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-soft/20 dark:via-surface dark:to-surface">
               <div className="flex items-center justify-between border-b border-stone-100/80 p-8 dark:border-border">
                 <div>
                   <h3 className="text-lg font-bold text-stone-800 dark:text-foreground">Jadwal Hari Ini</h3>
@@ -187,7 +187,7 @@ export default async function DashboardPage() {
           </div>
 
           <div className="col-span-12 space-y-8 lg:col-span-4">
-            <div className="rounded-[2.5rem] border border-amber-100/60 bg-gradient-to-br from-white via-amber-50/30 to-[#f8f5f0] p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-surface dark:via-surface dark:to-primary-soft/10">
+            <div className="rounded-[2.5rem] border border-amber-100/70 bg-gradient-to-bl from-amber-100/60 via-orange-50/20 to-white p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] dark:border-border dark:from-primary-soft/20 dark:via-surface dark:to-surface">
               <h3 className="mb-6 text-lg font-bold text-stone-800 dark:text-foreground">Aksi cepat</h3>
               <div className="space-y-3">
                 <Link href="/dashboard/layanan" className="group flex w-full items-center gap-4 rounded-2xl border border-stone-100 p-4 text-left transition-all duration-300 hover:border-amber-200 hover:bg-stone-50 dark:border-border dark:hover:border-primary/30 dark:hover:bg-surface-alt">
