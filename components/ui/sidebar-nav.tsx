@@ -18,7 +18,7 @@ export function SidebarNav({ footer }: { footer?: ReactNode }) {
 
   return (
     <>
-      <aside className="hidden w-[248px] shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-4 py-6 transition-colors duration-200 md:flex">
+      <aside className="hidden w-[248px] shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-4 py-6 transition-colors duration-200 md:sticky md:top-0 md:flex md:h-screen md:overflow-y-auto">
         <div className="px-2">
           <p className="font-display text-2xl font-semibold tracking-tight text-sidebar-foreground">Nuvora</p>
           <p className="mt-1 text-sm text-sidebar-muted">Buku jadwal barbershop</p>
@@ -33,11 +33,11 @@ export function SidebarNav({ footer }: { footer?: ReactNode }) {
                 href={item.href}
                 className={`flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                   active
-                    ? "bg-sidebar-active text-sidebar-foreground shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]"
+                    ? "bg-[#2a6f56] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
                     : "text-sidebar-muted hover:bg-white/5 hover:text-sidebar-foreground"
                 }`}
               >
-                <Icon size={18} strokeWidth={1.75} aria-hidden="true" className={active ? "text-[#7bc4a4]" : ""} />
+                <Icon size={18} strokeWidth={1.75} aria-hidden="true" className={active ? "text-white" : ""} />
                 <span>{item.label}</span>
               </Link>
             );
