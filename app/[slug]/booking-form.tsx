@@ -58,6 +58,17 @@ export default function BookingForm({ businessId, timezone, services }: { busine
   }
 
   if (services.length === 0) return <p className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-6 text-sm text-gray-500">Belum ada layanan yang tersedia.</p>;
+  function resetForm() {
+    setSuccess(null);
+    setError(null);
+    setSelectedSlot(null);
+    setSlots([]);
+    setSlotsLoaded(false);
+    setName("");
+    setEmail("");
+    setPhone("");
+  }
+
   if (success) return (
     <div className="rounded-2xl border border-[#C5A059]/30 bg-[#C5A059]/10 p-8 text-[#0C0C0C]">
       <div className="flex items-center gap-3 text-[#8E6E36]">
@@ -65,6 +76,9 @@ export default function BookingForm({ businessId, timezone, services }: { busine
         <p className="text-lg font-bold">Booking tercatat</p>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-gray-700">{success}</p>
+      <button type="button" onClick={resetForm} className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8E6E36] px-5 py-3 text-sm font-bold uppercase tracking-widest text-black transition hover:brightness-105 active:scale-[0.99]">
+        Buat booking lagi
+      </button>
     </div>
   );
 
